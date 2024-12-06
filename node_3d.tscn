@@ -1,0 +1,110 @@
+[gd_scene load_steps=16 format=3 uid="uid://cexkbcr6xmome"]
+
+[ext_resource type="Script" path="res://Cube.gd" id="1_21yho"]
+[ext_resource type="Script" path="res://Cube_AI.gd" id="2_6ck18"]
+[ext_resource type="Script" path="res://Target.gd" id="3_yl8eo"]
+[ext_resource type="Script" path="res://Target_AI.gd" id="4_j5imm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y00id"]
+emission_enabled = true
+emission = Color(0.822128, 0.438006, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_821do"]
+material = SubResource("StandardMaterial3D_y00id")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0x2fy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jcs50"]
+size = Vector3(1.1, 1.1, 1.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_frqkn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q2h4v"]
+emission_enabled = true
+emission = Color(0.366616, 0.927843, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0i70o"]
+material = SubResource("StandardMaterial3D_q2h4v")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tynpw"]
+size = Vector3(1.1, 1.1, 1.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pa0tk"]
+size = Vector3(100, 0.1, 100)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_muq6w"]
+data = PackedVector3Array(-50, 0.05, 50, 50, 0.05, 50, -50, -0.05, 50, 50, 0.05, 50, 50, -0.05, 50, -50, -0.05, 50, 50, 0.05, -50, -50, 0.05, -50, 50, -0.05, -50, -50, 0.05, -50, -50, -0.05, -50, 50, -0.05, -50, 50, 0.05, 50, 50, 0.05, -50, 50, -0.05, 50, 50, 0.05, -50, 50, -0.05, -50, 50, -0.05, 50, -50, 0.05, -50, -50, 0.05, 50, -50, -0.05, -50, -50, 0.05, 50, -50, -0.05, 50, -50, -0.05, -50, 50, 0.05, 50, -50, 0.05, 50, 50, 0.05, -50, -50, 0.05, 50, -50, 0.05, -50, 50, 0.05, -50, -50, -0.05, 50, 50, -0.05, 50, -50, -0.05, -50, 50, -0.05, 50, 50, -0.05, -50, -50, -0.05, -50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o7515"]
+size = Vector3(1, 1, 100)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Cube" type="CharacterBody3D" parent="." groups=["Cube"]]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -19.9166, 3.13005, 0)
+script = ExtResource("1_21yho")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cube"]
+mesh = SubResource("BoxMesh_821do")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube"]
+shape = SubResource("BoxShape3D_0x2fy")
+
+[node name="AIController3D" type="Node3D" parent="Cube"]
+script = ExtResource("2_6ck18")
+
+[node name="Area3D" type="Area3D" parent="Cube" groups=["Cube"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/Area3D"]
+shape = SubResource("BoxShape3D_jcs50")
+
+[node name="Target" type="CharacterBody3D" parent="." groups=["Target"]]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 13.4696, 3.09896, 0)
+script = ExtResource("3_yl8eo")
+
+[node name="AIController3D" type="Node3D" parent="Target"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.10702, -0.644267, 0)
+script = ExtResource("4_j5imm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Target"]
+shape = SubResource("BoxShape3D_frqkn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Target"]
+mesh = SubResource("BoxMesh_0i70o")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="Area3D" type="Area3D" parent="Target" groups=["Target"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Target/Area3D"]
+shape = SubResource("BoxShape3D_tynpw")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_pa0tk")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_muq6w")
+
+[node name="Wall" type="Area3D" parent="." groups=["Wall"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.5, 0, 0)
+shape = SubResource("BoxShape3D_o7515")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Wall" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.5, 0, 0)
+shape = SubResource("BoxShape3D_o7515")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Wall" groups=["Wall"]]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 50.5)
+shape = SubResource("BoxShape3D_o7515")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Wall" groups=["Wall"]]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -50.5)
+shape = SubResource("BoxShape3D_o7515")
+
+[connection signal="area_entered" from="Cube/Area3D" to="Cube" method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="Cube/Area3D" to="Cube" method="_on_body_entered"]
+[connection signal="area_entered" from="Target/Area3D" to="Target" method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="Target/Area3D" to="Target" method="_on_area_3d_body_entered"]

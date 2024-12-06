@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://b82o1afj8kyex"]
+
+[ext_resource type="PackedScene" uid="uid://cexkbcr6xmome" path="res://node_3d.tscn" id="1_wyisn"]
+[ext_resource type="Script" path="res://addons/godot_rl_agents/sync.gd" id="2_sdqda"]
+
+[node name="Node" type="Node"]
+
+[node name="Node3D" parent="." instance=ExtResource("1_wyisn")]
+
+[node name="Node3D2" parent="." instance=ExtResource("1_wyisn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -115.547, 0, 0)
+
+[node name="Node3D3" parent="." instance=ExtResource("1_wyisn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 113.336)
+
+[node name="Node3D4" parent="." instance=ExtResource("1_wyisn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -115.547, 0, 113.336)
+
+[node name="Node3D6" parent="." instance=ExtResource("1_wyisn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108.93, 0, 0)
+
+[node name="Node3D8" parent="." instance=ExtResource("1_wyisn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108.93, 0, 113.336)
+
+[node name="Node3D11" parent="." instance=ExtResource("1_wyisn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -107.487)
+
+[node name="Node3D12" parent="." instance=ExtResource("1_wyisn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -115.547, 0, -107.487)
+
+[node name="Node3D16" parent="." instance=ExtResource("1_wyisn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108.93, 0, -107.487)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 230, 0)
+
+[node name="Sync" type="Node" parent="."]
+script = ExtResource("2_sdqda")
+speed_up = 9.0
